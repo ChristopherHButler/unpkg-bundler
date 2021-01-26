@@ -1,6 +1,6 @@
 {
   "name": "unpkg-bundler",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A client-side bundler for unpkg",
   "types": "lib",
   "main": "./lib/cjs/index.js",
@@ -18,6 +18,7 @@
     "bundler",
     "client-side-bundler",
     "esbuild",
+    "esbuild-bundler",
     "unpkg",
     "unpkg-bundler"
   ],
@@ -29,9 +30,7 @@
     "lint": "tslint -p tsconfig.json",
     "test": "jest --config jestconfig.json",
     "compile": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
-    "prepublish": "npm run compile",
-    "dev": "esbuild ./src/index.ts --bundle --loader=ts --sourcemap '--define:process.env.NODE_ENV=\"development\"' --outdir=build-dev",
-    "build": "esbuild ./src/index.ts --bundle --loader=ts --minify '--define:process.env.NODE_ENV=\"production\"' --outdir=build"
+    "prepublish": "npm run compile"
   },
   "dependencies": {
     "axios": "^0.21.1",
