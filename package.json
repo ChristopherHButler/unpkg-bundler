@@ -1,7 +1,7 @@
 {
   "name": "unpkg-bundler",
-  "version": "0.0.7",
-  "description": "A client-side bundler for unpkg",
+  "version": "0.0.8",
+  "description": "A client-side transpiler, bundler as well as dynamic npm package fetch and load from unpkg",
   "types": "lib",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -16,6 +16,7 @@
   "homepage": "https://github.com/ChristopherHButler/unpkg-bundler",
   "keywords": [
     "bundler",
+    "transpiler",
     "client-side-bundler",
     "esbuild",
     "esbuild-bundler",

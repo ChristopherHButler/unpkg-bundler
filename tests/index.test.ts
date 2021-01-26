@@ -1,15 +1,15 @@
-import bundle from '../index';
+import bundle from '../src';
 
-test('Test Bundle', async () => {
-  const module1 = 'export const a = 3;';
-  const module2 = 'export const b = 5;';
-  const module3 = 'console.log(a + b)';
+test('Test UNPKG import', async () => {
+  // TO DO - How to fake using browser here. chromium?
+  const module1 = 'import React from \'react\'';
+  const module2 = 'const b = 5;';
+  const module3 = 'const b = 5;';
+  const module4 = 'console.log(a + b)';
 
-  const modules = [module1, module2, module3].join('\n');
+  const modules = [module1, module2, module3, module4].join('\n');
 
-  const bundledCode = await bundle(modules);
+  const { code, err } = await bundle(modules);
 
-  console.log('bundledCode: ', bundledCode);
-
-  expect(true).toBe(true);
+  expect(code).toContain('Facebook');
 });
