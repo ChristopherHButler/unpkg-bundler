@@ -109,7 +109,8 @@ const { code, err } = await bundle(input);
 #### Advanced Usage
 One way to use unpkg-bundler is as the engine for an online code editor.
 
-> ###### Demo App
+> **Demo App**
+
 As a proof of concept, I made a bare bones 'code editor' in just under 90 lines of code using unpkg-bundler.
  - Github [https://github.com/ChristopherHButler/code-tar-pit](https://github.com/ChristopherHButler/code-tar-pit)
  - Demo [https://code-tar-pit.vercel.app/](https://code-tar-pit.vercel.app/)
