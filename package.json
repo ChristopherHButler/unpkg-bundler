@@ -1,9 +1,10 @@
 {
   "name": "unpkg-bundler",
-  "version": "0.0.4",
-  "description": "",
+  "version": "0.0.5",
+  "description": "A client-side bundler for unpkg",
   "types": "lib",
-  "main": "lib/index.js",
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -21,21 +22,21 @@
     "unpkg-bundler"
   ],
   "files": [
-    "build/**/*"
+    "lib/"
   ],
   "scripts": {
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json",
     "test": "jest --config jestconfig.json",
-    "dev": "esbuild index.ts --bundle '--define:process.env.NODE_ENV=\"development\"' --outdir=build-dev",
-    "build": "esbuild index.ts --bundle '--define:process.env.NODE_ENV=\"production\"' --minify --outdir=build"
+    "compile": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
+    "prepublish": "npm run compile",
+    "dev": "esbuild ./src/index.ts --bundle --loader=ts --sourcemap '--define:process.env.NODE_ENV=\"development\"' --outdir=build-dev",
+    "build": "esbuild ./src/index.ts --bundle --loader=ts --minify '--define:process.env.NODE_ENV=\"production\"' --outdir=build"
   },
   "dependencies": {
     "axios": "^0.21.1",
     "esbuild-wasm": "^0.8.36",
-    "localforage": "^1.9.0",
-    "ts-node": "^9.1.1",
-    "typescript": "^4.1.3"
+    "localforage": "^1.9.0"
   },
   "devDependencies": {
     "@types/jest": "^26.0.20",
@@ -43,6 +44,7 @@
     "prettier": "^2.2.1",
     "ts-jest": "^26.4.4",
     "tslint": "^6.1.3",
-    "tslint-config-prettier": "^1.18.0"
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^4.1.3"
   }
 }
