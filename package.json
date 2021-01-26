@@ -1,6 +1,6 @@
 {
   "name": "unpkg-bundler",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "A client-side bundler for unpkg",
   "types": "lib",
   "main": "./lib/cjs/index.js",
