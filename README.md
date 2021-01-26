@@ -109,7 +109,12 @@ const { code, err } = await bundle(input);
 #### Advanced Usage
 One way to use unpkg-bundler is as the engine for an online code editor.
 
-> **Fun Fact**: unpkg-bundler is currently powering the app I made in that course here: [jsxbook](https://jsxbook.vercel.app/).
+**Demo App**
+As a proof of concept, I made the most bare bones 'code editor' you could imagine in just under 90 lines of code using unpkg-bundler.
+ - Github [https://github.com/ChristopherHButler/code-tar-pit](https://github.com/ChristopherHButler/code-tar-pit)
+ - Demo [https://code-tar-pit.vercel.app/](https://code-tar-pit.vercel.app/)
+
+> **Fun Fact**: unpkg-bundler is also currently powering the app I made in that course here: [jsxbook](https://jsxbook.vercel.app/).
 
 ## Motivation
 Not too long ago I built an online code editor [Contrived](https://contrived.herokuapp.com/) I had to write my own bundler and transpiler from scratch.
