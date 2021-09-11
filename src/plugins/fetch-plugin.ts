@@ -76,3 +76,73 @@ export const fetchPlugin = (inputCode: string) => {
     }
   };
 };
+
+export const tsxFetchPlugin = (inputCode: string) => {
+  return {
+    name: 'fetch-plugin',
+    setup(build: esbuild.PluginBuild) {
+
+      // load index.ts file
+      build.onLoad({ filter: /(^index\.ts$)/ }, () => {
+        return {
+          loader: 'tsx',
+          contents: inputCode,
+        };
+      });
+
+      // check the file cache
+      build.onLoad({ filter: /.*/ }, async (args: any) => {
+        const cachedResult = await fileCache.getItem(args.path);
+
+        if (cachedResult) {
+          return cachedResult;
+        }
+
+      });
+
+      // load css files
+      build.onLoad({ filter: /.css$/ }, async (args: any) => {
+
+        const { data, request } = await axios.get(args.path);
+
+        const escaped = data
+                          .replace(/\n/g, '')
+                          .replace(/"/g, '\\"')
+                          .replace(/'/g, "\\'");
+
+        const contents =
+          `
+            const style = document.createElement('style');
+            style.innerText = '${escaped}';
+            document.head.appendChild(style);
+          `;
+
+        const result = {
+          loader: 'ts',
+          contents,
+          resolveDir: new URL('./', request.responseURL).pathname,
+        };
+
+        await fileCache.setItem(args.path, result);
+
+        return result;
+      });
+
+      // load javascript / jsx files
+      build.onLoad({ filter: /.*/ }, async (args: any) => {
+
+        const { data, request } = await axios.get(args.path);
+
+        const result = {
+          loader: 'tsx',
+          contents: data,
+          resolveDir: new URL('./', request.responseURL).pathname,
+        };
+
+        await fileCache.setItem(args.path, result);
+
+        return result;
+      });
+    },
+  };
+};

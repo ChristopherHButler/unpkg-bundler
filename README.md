@@ -26,6 +26,8 @@
 
  - supports both ES modules (esm) and CommonJS (cjs). The default entry point is the esm module.
    - if you want to use the cjs module require bundle from `./lib/cjs`
+
+ - support for typescript and `tsx` with react code.
 #### Why bother using unpkg-bundler ?
  - There are other bundlers out there that run in the browser so why use unpkg-bundler?
 > The magic of unpkg-bundler is that it will automatically fetch and load npm packages from unpkg and add them to your bundle. 🤯
@@ -34,17 +36,17 @@
 ## Usage
  - unpkg-bundle has a single function: `bundle`
  - bundle is an async function
- - it takes a single string as an argument
+ - it takes a single required string as an argument and the typescript flag is optional
  - it returns an object with a code property and an err property.
 
 ```ts
 
-const bundle = async (input: string): { code: string; err: string; } => {...};
+const bundle = async (input: string, typescript: boolean): { code: string; err: string; } => {...};
 
 ```
 
 ## Examples
-The bundle function is called with a single string as an argument, without access to a file system. This makes it ideal for use in environments without a file system (such as a browser).
+The bundle function is called with a single string as an argument (and optionally the typescript boolean), without access to a file system. This makes it ideal for use in environments without a file system (such as a browser).
 
 #### Calling bundle
 
@@ -54,7 +56,14 @@ import bundle from 'unpkg-bundler';
 
 // call the (async) bundle function.
 const output = await bundle('const a = 1;');
+```
 
+```ts
+// import the bundle function
+import bundle from 'unpkg-bundler';
+
+// call the (async) bundle function.
+const output = await bundle('const a = 1;', typescript);
 ```
 
 #### Basic Example
@@ -104,6 +113,34 @@ ReactDOM.render(<App />, document.querySelector('#root'));
 // 2) transpile your code
 // 3) bundle your code
 const { code, err } = await bundle(input);
+```
+
+**With TypeScript**
+```ts
+// react component to bundle
+const input = 
+`
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+const App = (): JSX.Element => {
+  return (
+    <div style={{ fontFamily: 'sans-serif', textAlign: 'center' }}>
+      <h1>Hello jsx book!</h1>
+      <h2>Start editing to create something magic!</h2>
+      <p>By the way, you can import (almost) ANY npm package using our magic bundler</p>
+    </div>
+  );
+};
+
+ReactDOM.render(<App />, document.querySelector('#root'));
+`;
+
+// unpkg-bundler will automatically:
+// 1) fetch react and react-dom from unpkg and load them into your bundle
+// 2) transpile your code
+// 3) bundle your code
+const { code, err } = await bundle(input, typescript);
 ```
 
 #### Advanced Usage
