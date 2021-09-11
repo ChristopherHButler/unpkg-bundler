@@ -1,6 +1,6 @@
 {
   "name": "unpkg-bundler",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "A client-side transpiler, bundler as well as dynamic npm package fetch and load from unpkg",
   "types": "lib",
   "main": "./lib/cjs/index.js",
