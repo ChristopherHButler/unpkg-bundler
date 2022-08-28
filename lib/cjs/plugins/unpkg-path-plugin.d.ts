@@ -3,3 +3,7 @@ export declare const unpkgPathPlugin: () => {
     name: string;
     setup(build: esbuild.PluginBuild): void;
 };
+export declare const tsUnpkgPathPlugin: () => {
+    name: string;
+    setup(build: esbuild.PluginBuild): void;
+};
