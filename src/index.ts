@@ -31,7 +31,8 @@ const bundle = async ({ rawCode, typescript = false, versionTag = '0.8.36' }: Bu
       write: false,
       plugins,
       define: {
-        'process.env.NODE_ENV': '"production"',
+        // vite somehow overwrite the string 'process.env.NODE_ENV' with the actual process.env.NODE_ENV values, so we must trick it
+        'process'+'.env.NODE_ENV': '"production"',
         global: 'window'
       },
     });
