@@ -9,13 +9,14 @@ let service: esbuild.Service;
 interface BundleArgs {
   rawCode: string;
   typescript?: boolean;
+  versionTag?: string;
 }
 
-const bundle = async ({ rawCode, typescript = false }: BundleArgs) => {
+const bundle = async ({ rawCode, typescript = false, versionTag = '0.8.36' }: BundleArgs) => {
   if (!service) {
     service = await esbuild.startService({
       worker: true,
-      wasmURL: 'https://unpkg.com/esbuild-wasm@0.8.36/esbuild.wasm'
+      wasmURL: `https://unpkg.com/esbuild-wasm@${versionTag}/esbuild.wasm`,
     });
   }
 
@@ -30,7 +31,8 @@ const bundle = async ({ rawCode, typescript = false }: BundleArgs) => {
       write: false,
       plugins,
       define: {
-        'process.env.NODE_ENV': '"production"',
+        // vite somehow overwrite the string 'process.env.NODE_ENV' with the actual process.env.NODE_ENV values, so we must trick it
+        [['process','env','NODE_ENV'].join(".")]: '"production"',
         global: 'window'
       },
     });
